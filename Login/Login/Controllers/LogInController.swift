@@ -9,18 +9,24 @@
 import UIKit
 
 class LogInController: UIViewController {
-
+    let profileImageView = UIImageView()
     let inputViewConstrain = UIView()
-    let RegisterButton     = UIButton(type:.system)
+    
     let NameTextField      = UITextField()
     let EmailTextField      = UITextField()
     let PasswordTextField      = UITextField()
+    
+    let RegisterButton     = UIButton(type:.system)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         
+        //profile init
+        profileImageView.image = UIImage(named:"profile")
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.contentMode = .scaleAspectFill
         
         // initiate inputs view container
         inputViewConstrain.backgroundColor = UIColor.white
@@ -50,12 +56,25 @@ class LogInController: UIViewController {
         PasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         PasswordTextField.isSecureTextEntry = true
         
+        //add profile to view controller
+        view.addSubview(profileImageView)
         
         // add inputs view container to view
         view.addSubview(inputViewConstrain)
         
         // add button to view
         view.addSubview(RegisterButton)
+        
+        
+        //CONSTRAINS ----------------------------
+        
+        //add profile constain
+        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: inputViewConstrain.topAnchor, constant: -12).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        
         
         //  add Text field to inputs container
         inputViewConstrain.addSubview(NameTextField)
@@ -94,6 +113,7 @@ class LogInController: UIViewController {
             PasswordTextField.rightAnchor.constraint(equalTo: inputViewConstrain.rightAnchor,constant: -12).isActive = true
             PasswordTextField.heightAnchor.constraint(equalTo: inputViewConstrain.heightAnchor, multiplier: 1/3).isActive = true
         
+        //END CONSTRAINS
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
