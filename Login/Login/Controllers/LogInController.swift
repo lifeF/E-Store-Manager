@@ -26,6 +26,8 @@ class LogInController: UIViewController {
     var emailInpurHeightConstraint : NSLayoutConstraint?
     var passwordInpurHeightConstraint : NSLayoutConstraint?
     
+//    let
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(r: 61, g: 191, b: 150)
@@ -173,9 +175,33 @@ class LogInController: UIViewController {
         passwordInpurHeightConstraint?.isActive = true
     }
     
-    // handle Register Button
     @objc func handleRegister(){
-        guard let email=EmailTextField.text , let password = PasswordTextField.text
+        if(SegmentedControl.selectedSegmentIndex == 1){
+            Register()
+        }
+        else{
+            Login()
+        }
+    }
+    //user login handle
+    @objc func Login(){
+        guard  let email=EmailTextField.text , let password = PasswordTextField.text
+        else{
+                print("form is not valid")
+                return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (auth, err) in
+            if(err != nil){
+                print(err ?? "error")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    // handle Register Button
+    @objc func Register(){
+        guard let name = NameTextField.text, let email=EmailTextField.text , let password = PasswordTextField.text
         else{
             print("form is not valid")
             return
@@ -183,7 +209,7 @@ class LogInController: UIViewController {
 
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
-                print(error ?? "error")
+                print("Please insert Details")
                 return
             }
 
@@ -194,7 +220,7 @@ class LogInController: UIViewController {
             }
 
             var ref: DatabaseReference!
-            let value = ["name":self.NameTextField.text,"email":self.EmailTextField.text]
+            let value = ["name":name,"email":email]
             ref = Database.database().reference(fromURL: "https://store-incore.firebaseio.com/")
 
             let userRef = ref.child(byAppendingPath: "user").child(byAppendingPath:uid)
@@ -208,13 +234,6 @@ class LogInController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             })
         }
-        
-        
-        
-      
-        
-        
-        
     }
 }
 
