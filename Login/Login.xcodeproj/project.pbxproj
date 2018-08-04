@@ -16,6 +16,8 @@
 		F63CE9FA2107B78C0063C229 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CE9F92107B78C0063C229 /* LogInController.swift */; };
 		F67A319F210AC70200AB3831 /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A319E210AC70200AB3831 /* MessageController.swift */; };
 		F67A31A2210AD06900AB3831 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A31A1210AD06900AB3831 /* User.swift */; };
+		F67C8BC52110177B003EFCC0 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67C8BC42110177B003EFCC0 /* ChatController.swift */; };
+		F69C23DF210DBE2D000952DB /* LoginController+handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69C23DE210DBE2D000952DB /* LoginController+handler.swift */; };
 		F6E953F4210861C800AA77DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6E953F3210861C800AA77DD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		F63CE9F92107B78C0063C229 /* LogInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInController.swift; sourceTree = "<group>"; };
 		F67A319E210AC70200AB3831 /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 		F67A31A1210AD06900AB3831 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F67C8BC42110177B003EFCC0 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		F69C23DE210DBE2D000952DB /* LoginController+handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handler.swift"; sourceTree = "<group>"; };
 		F6E953F3210861C800AA77DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +108,8 @@
 				F63CE9E62107AD5B0063C229 /* ViewController.swift */,
 				F63CE9F92107B78C0063C229 /* LogInController.swift */,
 				F67A319E210AC70200AB3831 /* MessageController.swift */,
+				F69C23DE210DBE2D000952DB /* LoginController+handler.swift */,
+				F67C8BC42110177B003EFCC0 /* ChatController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -214,6 +220,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Login/Pods-Login-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -221,6 +228,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -236,7 +244,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F69C23DF210DBE2D000952DB /* LoginController+handler.swift in Sources */,
 				F63CE9E72107AD5B0063C229 /* ViewController.swift in Sources */,
+				F67C8BC52110177B003EFCC0 /* ChatController.swift in Sources */,
 				F63CE9FA2107B78C0063C229 /* LogInController.swift in Sources */,
 				F63CE9E52107AD5B0063C229 /* AppDelegate.swift in Sources */,
 				F67A31A2210AD06900AB3831 /* User.swift in Sources */,

@@ -8,8 +8,11 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 class LogInController: UIViewController {
+    
+   
     
     let profileImageView = UIImageView()
     let SegmentedControl = UISegmentedControl(items: ["Login","Register"])
@@ -30,12 +33,17 @@ class LogInController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         view.backgroundColor = UIColor(r: 61, g: 191, b: 150)
         
         //profile init
-        profileImageView.image = UIImage(named:"profile")
+        profileImageView.image = UIImage(named:"userprofile")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFill
+        profileImageView.layer.cornerRadius = 75
+        profileImageView.layer.masksToBounds = true
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageSelector)))
+        profileImageView.isUserInteractionEnabled = true
         
         //init Segmented
         SegmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -151,6 +159,8 @@ class LogInController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    
    
     // handle Segmented control
     @objc func handleSegmentedControl(_sender : UISegmentedControl){
@@ -192,11 +202,13 @@ class LogInController: UIViewController {
         }
         Auth.auth().signIn(withEmail: email, password: password) { (auth, err) in
             if(err != nil){
-                print(err ?? "error")
+                print("Can't authentication by using those Email ")
                 return
             }
             self.dismiss(animated: true, completion: nil)
         }
+        
+        
     }
     
     // handle Register Button
@@ -209,7 +221,7 @@ class LogInController: UIViewController {
 
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if error != nil {
-                print("Please insert Details")
+                print("Can't Register by using this Email ")
                 return
             }
 
@@ -218,21 +230,39 @@ class LogInController: UIViewController {
             else{
                 return
             }
+            // Unique id base on time and date
+            let myProfile = NSUUID().uuidString
+            // upload image  10 % compression  jpeg image
+            let refStorage = Storage.storage().reference().child("profile_Images").child("\(myProfile).jpg")
+            if let uploadImage  = UIImageJPEGRepresentation(self.profileImageView.image!,0.1){
+                refStorage.putData(uploadImage, metadata: nil, completion: { (metadata, error) in
+                    if (error != nil ){
+                        print(error!)
+                        return
+                    }
+//                    var urlProfile : String?
+                    refStorage.downloadURL(completion: { (url, error) in
+                        if(error != nil){
+                            return
+                        }
+                        var ref: DatabaseReference!
+                        let value = ["name":name,"email":email ,"profile": url!.absoluteString ]
+                        ref = Database.database().reference(fromURL: "https://store-incore.firebaseio.com/")
+                        let userRef = ref.child("user").child(uid)
+                        userRef.updateChildValues(value, withCompletionBlock:{(error,ref) in
+                            if error != nil {
+                                print("fail added user data to firebase db")
+                                return
+                            }
+                            print("successfly added to the firebase db")
+                            self.dismiss(animated: true, completion: nil)
 
-            var ref: DatabaseReference!
-            let value = ["name":name,"email":email]
-            ref = Database.database().reference(fromURL: "https://store-incore.firebaseio.com/")
-
-            let userRef = ref.child(byAppendingPath: "user").child(byAppendingPath:uid)
-            userRef.updateChildValues(value, withCompletionBlock:{(error,ref)
-                in
-                if error != nil {
-                    print(error ?? "error")
-                    return
-                }
-                print("successfly added to the firebase db")
-                self.dismiss(animated: true, completion: nil)
-            })
+                        })
+                    })
+                    
+                })
+            } // end if
+            
         }
     }
 }
